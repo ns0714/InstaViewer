@@ -38,14 +38,11 @@ public class PhotosActivity extends Activity {
 	private void fetchPopularPhotos() {
 		photos = new ArrayList<InstagramPhoto>();
 		aPhotos = new InstagramPhotosAdapter(this, photos);
-		
-		// ListView lvPhotos = (ListView)findViewById(R.id.lvPhotos);
 		lvPhotos = (PullToRefreshListView) findViewById(R.id.lvPhotos);
 		lvPhotos.setAdapter(aPhotos);
-		// setup popular url endpoint v bv
-
-		popularUrl = "https://api.instagram.com/v1/media/popular?client_id="
-				+ CLIENT_ID;
+		
+		// setup popular url endpoint
+		popularUrl = "https://api.instagram.com/v1/media/popular?client_id="+ CLIENT_ID;
 
 		// Create the network client
 		client = new AsyncHttpClient();
@@ -53,9 +50,6 @@ public class PhotosActivity extends Activity {
 		lvPhotos.setOnRefreshListener(new OnRefreshListener() {
 			@Override
 			public void onRefresh() {
-				// Your code to refresh the list here.
-				// Make sure you call listView.onRefreshComplete() when
-				// once the network request has completed successfully.
 				fetchTimelineAsync(0);
 			}
 		});
@@ -65,49 +59,37 @@ public class PhotosActivity extends Activity {
 	public void fetchTimelineAsync(int page) {
 		client.get(popularUrl, new JsonHttpResponseHandler() {
 
-			// define success & failure callbacks
-			// handle the successful response(popular photos JSON)
 			// @Override
 			public void onSuccess(int statusCode, Header[] headers,
 					JSONObject response) {
 				// Fired once successful response back
-				// url, height, username, caption
-				// { "data" => [x] => "images" => "standard_resolution" => url}
-				// { "data" => [x] => "images" => "standard_resolution" =>
-				// height}
-				// { "data" => [x] => "user" => "username"}
-				// { "data" => [x] => "caption" => "text"}
-				// {"data" => [x] => "comments" => "data" => "from" =>
-				// "username"}
-				// {"data" => [x] => "comments" => "data" => "text"}
-				// Log.i("INFO", response.toString());
+		
 				JSONArray photosJSON = null;
-				//JSONObject commentJSON = new JSONObject();
 				try {
 					photos.clear();
 					photosJSON = response.getJSONArray("data");
 					for (int i = 0; i < photosJSON.length(); i++) {
 						JSONObject photoJSON = photosJSON.getJSONObject(i);
 						InstagramPhoto photo = new InstagramPhoto();
-						photo.username = photoJSON.getJSONObject("user")
-								.getString("username");
-						photo.image_url = photoJSON.getJSONObject("images")
+						photo.setUsername(photoJSON.getJSONObject("user")
+								.getString("username"));
+						photo.setImage_url(photoJSON.getJSONObject("images")
 								.getJSONObject("standard_resolution")
-								.getString("url");
-						photo.height = photoJSON.getJSONObject("images")
+								.getString("url"));
+						photo.setHeight(photoJSON.getJSONObject("images")
 								.getJSONObject("standard_resolution")
-								.getInt("height");
-						photo.createdTime = photoJSON.getInt("created_time");
+								.getInt("height"));
+						photo.setCreatedTime(photoJSON.getInt("created_time"));
+						
 						Object menuObject = photoJSON.get("caption");
 
 						if (menuObject != JSONObject.NULL) {
-							// Skip processing the response Data
-							photo.caption = photoJSON.getJSONObject("caption")
-									.getString("text");
+							photo.setCaption(photoJSON.getJSONObject("caption")
+									.getString("text"));
 						}
-						photo.likesCount = photoJSON.getJSONObject("likes").getInt("count");
-						photo.user_profile_pic = photoJSON.getJSONObject("user").getString(
-										"profile_picture");
+						photo.setLikesCount(photoJSON.getJSONObject("likes").getInt("count"));
+						photo.setUser_profile_pic(photoJSON.getJSONObject("user").getString(
+										"profile_picture"));
 
 						JSONObject jsonComm = photoJSON.getJSONObject("comments");
 						JSONArray jsonCommArr = jsonComm.getJSONArray("data");
@@ -118,8 +100,8 @@ public class PhotosActivity extends Activity {
 									.getJSONObject(j);
 							InstagramComment comm = new InstagramComment();
 							
-							comm.username = commentsJSON.getJSONObject("from").getString("username");
-							comm.commentText = commentsJSON.getString("text");
+							comm.setUsername(commentsJSON.getJSONObject("from").getString("username"));
+							comm.setCommentText(commentsJSON.getString("text"));
 							comments.add(comm);
 						}
 						photo.setComments(comments);

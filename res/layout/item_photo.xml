@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.codepath.instagramviewer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res/com.codepath.instagramviewer">
+    android:layout_height="match_parent" >
 
-   <com.mikhaellopez.circularimageview.CircularImageView
-       android:id="@+id/profilePicture"
-       android:layout_width="50dp"
-       android:layout_height="50dp"
-       android:layout_alignParentLeft="true"
-       android:layout_marginBottom="7dp"
-       android:layout_marginTop="7dp"
-       android:layout_marginLeft="3dp"
-       android:adjustViewBounds="true"
-       android:scaleType="centerCrop"
-       android:src="@drawable/ic_launcher"
-       app:border="false"
-       app:border_color="#EEEEEE"
-       app:border_width="1dp"
-       app:shadow="true" />
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/profilePicture"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="7dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="7dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher"
+        app:border="false"
+        app:border_color="#EEEEEE"
+        app:border_width="1dp"
+        app:shadow="true" />
 
     <ImageView
         android:id="@+id/imagePhoto"
@@ -33,45 +34,14 @@
         android:id="@+id/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:paddingLeft="5dp"
-        android:textSize="15sp"
         android:layout_toRightOf="@+id/profilePicture"
+        android:paddingLeft="5dp"
+        android:paddingTop="10dp"
         android:text="@string/userName"
-        android:textColor="#045FB4"
+        android:textColor="#27408B"
+        android:textSize="15sp"
+        android:textStyle="bold"
         android:typeface="sans" />
-
-    <ImageView
-        android:id="@+id/likesImg"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_below="@+id/imagePhoto"
-        android:paddingTop="5dp"
-        android:src="@drawable/love" />
-    
-     <TextView
-        android:id="@+id/lvComment1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lvCaption"
-        android:textSize="12sp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:paddingLeft="2dp"
-        android:layout_toRightOf="@+id/lvUserId1"
-        android:text="@string/userComment1" />
-
-    <TextView
-        android:id="@+id/lvCaption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/likes"
-        android:layout_alignLeft="@id/likes"
-        android:textSize="12sp"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:paddingBottom="2dp"
-        android:text="@string/caption_default_text" />
 
     <TextView
         android:id="@+id/time"
@@ -81,19 +51,20 @@
         android:layout_alignBottom="@+id/userName"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
-        android:textSize="12sp"
-        android:text="TextView" />
+        android:text="@string/createdTime"
+        android:textSize="12sp" />
 
-     <TextView
+    <TextView
         android:id="@+id/lvUserId1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/lvCaption"
-        android:layout_alignLeft="@id/likes"
-        android:textSize="12sp"
+        android:layout_alignLeft="@+id/likes"
+        android:layout_below="@+id/lvViewAll"
         android:paddingBottom="2dp"
         android:text="@string/userId1"
-        android:textColor="#0B0B61" />
+        android:textColor="#27408B"
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/lvUserId2"
@@ -103,9 +74,22 @@
         android:layout_below="@+id/lvUserId1"
         android:paddingBottom="2dp"
         android:text="@string/userId2"
-        android:textColor="#0B0B61"
-        android:textSize="12sp" />
+        android:textColor="#27408B"
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/lvComment1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lvViewAll"
+        android:layout_toRightOf="@+id/lvUserId1"
+        android:paddingLeft="2dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="@string/userComment1"
+        android:textSize="14sp" />
+    
     <TextView
         android:id="@+id/lvComment2"
         android:layout_width="wrap_content"
@@ -113,37 +97,59 @@
         android:layout_alignBaseline="@+id/lvUserId2"
         android:layout_alignBottom="@+id/lvUserId2"
         android:layout_toRightOf="@+id/lvUserId2"
+        android:paddingLeft="2dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:paddingLeft="2dp"
         android:text="@string/userComment2"
-        android:textSize="12sp" />
-    
-     <TextView
+        android:textSize="14sp" />
+
+    <TextView
         android:id="@+id/likes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/likesImg"
         android:layout_toRightOf="@+id/likesImg"
-        android:textSize="14sp"
-        android:textColor="#0B0B61"
-        android:text="@string/likesCount" />
-
+        android:text="@string/likesCount"
+        android:textColor="#27408B"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+    
      <ImageView
-         android:id="@+id/lvclock"
-         android:layout_width="15dp"
-         android:layout_height="15dp"
-  		 android:layout_toLeftOf="@id/time"
-         android:layout_alignBottom="@+id/time"
-         android:src="@drawable/clock" />
+        android:id="@+id/likesImg"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/imagePhoto"
+        android:paddingTop="5dp"
+        android:src="@drawable/love" />
 
-     <ImageView
-         android:id="@+id/lvCommentImg"
-         android:layout_width="17dp"
-         android:layout_height="17dp"
-         android:paddingLeft="5dp"
-         android:layout_alignLeft="@+id/likesImg"
-         android:layout_alignTop="@+id/lvUserId1"
-         android:src="@drawable/comment" />
+    <ImageView
+        android:id="@+id/lvclock"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_alignBottom="@+id/time"
+        android:layout_toLeftOf="@id/time"
+        android:src="@drawable/clock" />
+
+    <TextView
+        android:id="@+id/lvCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/likes"
+        android:layout_below="@+id/likes"
+        android:paddingBottom="2dp"
+        android:paddingLeft="2dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="@string/caption_default_text"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/lvViewAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/lvCaption"
+        android:layout_below="@+id/lvCaption"
+        android:text="@string/viewAll"
+        android:textColor="#A4A4A4" />
 
 </RelativeLayout>

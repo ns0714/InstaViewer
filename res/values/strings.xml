@@ -6,10 +6,13 @@
     <string name="popular_photos_caption">Popular Photos</string>
     <string name="caption_default_text">This is a default caption</string>
     <string name="userName">Username</string>
-    <string name="likesCount">likes</string>
-    <string name="userId1">user</string>
-    <string name="userComment1">user comment</string>
-    <string name="userId2">user id</string>
-    <string name="userComment2">user comment</string>
-
+    <string name="likesCount">Likes</string>
+    <string name="userId1">User</string>
+    <string name="userComment1">User Comment</string>
+    <string name="userId2">User</string>
+    <string name="userComment2">User Comment</string>
+	<string name="user">Username</string>
+	<string name="viewAll">view all %d comments</string>
+	<string name="likes">likes</string>
+	<string name="createdTime">Time</string>
 </resources>
