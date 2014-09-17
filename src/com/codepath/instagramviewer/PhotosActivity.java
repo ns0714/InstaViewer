@@ -1,7 +1,6 @@
 package com.codepath.instagramviewer;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -48,8 +47,6 @@ public class PhotosActivity extends Activity {
 		popularUrl = "https://api.instagram.com/v1/media/popular?client_id="
 				+ CLIENT_ID;
 
-		//System.out.println(popularUrl);
-
 		// Create the network client
 		client = new AsyncHttpClient();
 		fetchTimelineAsync(0);
@@ -85,7 +82,7 @@ public class PhotosActivity extends Activity {
 				// {"data" => [x] => "comments" => "data" => "text"}
 				// Log.i("INFO", response.toString());
 				JSONArray photosJSON = null;
-				JSONObject commentJSON = new JSONObject();
+				//JSONObject commentJSON = new JSONObject();
 				try {
 					photos.clear();
 					photosJSON = response.getJSONArray("data");
@@ -101,7 +98,6 @@ public class PhotosActivity extends Activity {
 								.getJSONObject("standard_resolution")
 								.getInt("height");
 						photo.createdTime = photoJSON.getInt("created_time");
-						System.out.println("^^^^" + photoJSON.getString("created_time"));
 						Object menuObject = photoJSON.get("caption");
 
 						if (menuObject != JSONObject.NULL) {
@@ -109,20 +105,16 @@ public class PhotosActivity extends Activity {
 							photo.caption = photoJSON.getJSONObject("caption")
 									.getString("text");
 						}
-						photo.likesCount = photoJSON.getJSONObject("likes")
-								.getInt("count");
-						photo.user_profile_pic = photoJSON
-								.getJSONObject("user").getString(
+						photo.likesCount = photoJSON.getJSONObject("likes").getInt("count");
+						photo.user_profile_pic = photoJSON.getJSONObject("user").getString(
 										"profile_picture");
 
-						JSONObject c = photoJSON.getJSONObject("comments");
-						JSONArray jr = c.getJSONArray("data");
+						JSONObject jsonComm = photoJSON.getJSONObject("comments");
+						JSONArray jsonCommArr = jsonComm.getJSONArray("data");
 						
-						//HashMap<String, String> mp = new HashMap<String, String>();
-						//mp.clear();
 						comments = new ArrayList<InstagramComment>();
-						for (int j = 0; j < jr.length(); j++) {
-							JSONObject commentsJSON = jr
+						for (int j = 0; j < jsonCommArr.length(); j++) {
+							JSONObject commentsJSON = jsonCommArr
 									.getJSONObject(j);
 							InstagramComment comm = new InstagramComment();
 							
@@ -130,15 +122,8 @@ public class PhotosActivity extends Activity {
 							comm.commentText = commentsJSON.getString("text");
 							comments.add(comm);
 						}
-						//System.out.println("####" + comments);
-						for(InstagramComment d : comments){
-							System.out.println("USERNAMEEEE " + d.username);
-							System.out.println("USERNAMEEECOMMENTE " + d.commentText);
-						}
 						photo.setComments(comments);
-						//comments.clear();
 						photos.add(photo);
-						System.out.println("***********************************************");
 					}
 					lvPhotos.onRefreshComplete();
 					aPhotos.notifyDataSetChanged();

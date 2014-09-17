@@ -1,0 +1,13 @@
+!SESSION 2014-09-16 14:48:07.634 -----------------------------------------------
+eclipse.buildId=M20130204-1200
+java.version=1.6.0_65
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product adtproduct -product adtproduct -keyring /Users/nsamant/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product adtproduct -data /Users/nsamant/git/InstagramViewer -product adtproduct -keyring /Users/nsamant/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.equinox.app 0 0 2014-09-16 14:48:09.271
+!MESSAGE Product adtproduct could not be found.
+
+!ENTRY org.eclipse.ui 2 2 2014-09-16 14:48:51.239
+!MESSAGE Invalid property category path: ValidationPropertiesPage (bundle: org.eclipse.wst.xml.ui, propertyPage: org.eclipse.wst.xml.ui.propertyPage.project.validation)

@@ -8,7 +8,11 @@
        android:layout_width="50dp"
        android:layout_height="50dp"
        android:layout_alignParentLeft="true"
-       android:layout_alignRight="@+id/likes"
+       android:layout_marginBottom="7dp"
+       android:layout_marginTop="7dp"
+       android:layout_marginLeft="3dp"
+       android:adjustViewBounds="true"
+       android:scaleType="centerCrop"
        android:src="@drawable/ic_launcher"
        app:border="false"
        app:border_color="#EEEEEE"
@@ -30,6 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
+        android:paddingLeft="5dp"
         android:textSize="15sp"
         android:layout_toRightOf="@+id/profilePicture"
         android:text="@string/userName"
@@ -120,7 +125,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/likesImg"
         android:layout_toRightOf="@+id/likesImg"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:textColor="#0B0B61"
         android:text="@string/likesCount" />
 
@@ -131,5 +136,14 @@
   		 android:layout_toLeftOf="@id/time"
          android:layout_alignBottom="@+id/time"
          android:src="@drawable/clock" />
+
+     <ImageView
+         android:id="@+id/lvCommentImg"
+         android:layout_width="17dp"
+         android:layout_height="17dp"
+         android:paddingLeft="5dp"
+         android:layout_alignLeft="@+id/likesImg"
+         android:layout_alignTop="@+id/lvUserId1"
+         android:src="@drawable/comment" />
 
 </RelativeLayout>
