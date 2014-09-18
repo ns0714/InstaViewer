@@ -16,6 +16,7 @@ Completed user stories:
 - [x] Optional: Customized the action bar color to look like Instagram.    
 - [x] Optional: Added custom launcher icon.  
 - [x] Optional: Customised the action bar font to look like Instagram.
+- [x] Optional: Improved performance with the ViewHolder Pattern
              
 
 Walkthrough of all user stories:
