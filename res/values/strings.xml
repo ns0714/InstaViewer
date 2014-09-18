@@ -3,7 +3,7 @@
 
     <string name="app_name">InstagramViewer</string>
     <string name="hello_world">Hello world!</string>
-    <string name="popular_photos_caption">Popular Photos</string>
+    <string name="popular_photos_caption">Insta View</string>
     <string name="caption_default_text">This is a default caption</string>
     <string name="userName">Username</string>
     <string name="likesCount">Likes</string>

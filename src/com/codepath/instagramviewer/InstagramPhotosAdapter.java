@@ -1,11 +1,13 @@
 package com.codepath.instagramviewer;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import android.content.Context;
 import android.text.Html;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,43 +70,72 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
 					.findViewById(R.id.lvComment2);
 			viewHolder.createdTime = (TextView) convertView
 					.findViewById(R.id.time);
-			viewHolder.viewAll = (TextView)convertView.findViewById(R.id.lvViewAll);
+			viewHolder.viewAll = (TextView) convertView
+					.findViewById(R.id.lvViewAll);
 			convertView.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		// Populate subviews with correct data
 		viewHolder.userName.setText(photo.getUsername()); // username
-		viewHolder.imagePhoto.getLayoutParams().height = photo.getHeight();
+		viewHolder.imagePhoto.getLayoutParams().height = photo.getHeight(); //height
 		viewHolder.imagePhoto.setImageResource(0); // image
-		viewHolder.likes.setText(photo.getLikesCount() + " " +getContext().getResources().getString(R.string.likes)); // likes
-		viewHolder.tvCaption.setText(Html.fromHtml("<b>"+photo.getUsername()+"</b>" + " " +photo.getCaption())); // caption
-		viewHolder.viewAll.setText(getContext().getResources().getString(R.string.viewAll, photo.getLikesCount())); // caption
+		viewHolder.likes.setText(photo.getLikesCount() + " "
+				+ getContext().getResources().getString(R.string.likes)); // likes
+		viewHolder.tvCaption.setText(Html.fromHtml("<b>" + photo.getUsername()
+				+ "</b>" + " " + photo.getCaption())); // caption
+		viewHolder.viewAll.setText(getContext().getResources().getString(
+				R.string.viewAll, photo.getLikesCount())); // view all comments
 
 		ArrayList<InstagramComment> comment = photo.getComments();
 		int length = comment.size();
 
-		if(length >=2){
-			viewHolder.userComment1.setText(comment.get(length - 1).getUsername()+ " ");
-			viewHolder.comments1.setText(comment.get(length - 1).getCommentText());
-			viewHolder.userComment2.setText(comment.get(length - 2).getUsername() + " ");
-			viewHolder.comments2.setText(comment.get(length - 2).getCommentText());
+		if (length >= 2) {
+			viewHolder.userComment1.setText(comment.get(length - 1)
+					.getUsername() + " ");
+			viewHolder.comments1.setText(comment.get(length - 1)
+					.getCommentText());
+			viewHolder.userComment2.setText(comment.get(length - 2)
+					.getUsername() + " ");
+			viewHolder.comments2.setText(comment.get(length - 2)
+					.getCommentText());
 		} else {
 			viewHolder.userComment1.setVisibility(View.GONE);
 			viewHolder.comments1.setVisibility(View.GONE);
 			viewHolder.userComment2.setVisibility(View.GONE);
 			viewHolder.comments2.setVisibility(View.GONE);
 		}
-		
+
 		viewHolder.userProfilePic.setImageResource(0);
-		viewHolder.createdTime.setText(DateUtils.getRelativeTimeSpanString(
-				photo.getCreatedTime() * 1000, System.currentTimeMillis(),
-				DateUtils.SECOND_IN_MILLIS));
+		viewHolder.createdTime.setText(getFormatedTime(photo.getCreatedTime()));
 
 		Picasso.with(getContext()).load(photo.getImage_url())
 				.into(viewHolder.imagePhoto);
 		Picasso.with(getContext()).load(photo.getUser_profile_pic())
 				.into(viewHolder.userProfilePic);
 		return convertView;
+	}
+
+	public String getFormatedTime(long createdTime) {
+		String formattedTime = "";
+		Calendar instance = Calendar.getInstance();
+		instance.setTimeInMillis(createdTime);
+		Date creationTime = instance.getTime();
+
+		long diffInMs = (new Date(System.currentTimeMillis()).getTime() / 1000)
+				- creationTime.getTime();
+		long diffInHours = TimeUnit.SECONDS.toHours(diffInMs);
+		long diffInMins = TimeUnit.SECONDS.toMinutes(diffInMs);
+		long diffInDays = TimeUnit.SECONDS.toDays(diffInMins);
+
+		if (diffInMins < 60) {
+			formattedTime = diffInMins + "m";
+		} else if (diffInHours >= 1 && diffInHours < 24) {
+			formattedTime = diffInHours + "h";
+		} else if (diffInDays >= 1) {
+			formattedTime = diffInDays +"d";
+		}
+
+		return formattedTime;
 	}
 }

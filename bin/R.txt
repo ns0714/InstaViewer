@@ -7,8 +7,10 @@ int drawable clock 0x7f020000
 int drawable comment 0x7f020001
 int drawable heart 0x7f020002
 int drawable ic_launcher 0x7f020003
-int drawable love 0x7f020004
-int drawable ptr_pulltorefresh_arrow 0x7f020005
+int drawable instaview 0x7f020004
+int drawable likeheart 0x7f020005
+int drawable love 0x7f020006
+int drawable ptr_pulltorefresh_arrow 0x7f020007
 int id imagePhoto 0x7f060002
 int id likes 0x7f060006
 int id likesImg 0x7f06000b
@@ -16,10 +18,10 @@ int id lvCaption 0x7f06000d
 int id lvComment1 0x7f060009
 int id lvComment2 0x7f06000a
 int id lvPhotos 0x7f060000
+int id lvTimeImg 0x7f06000c
 int id lvUserId1 0x7f060005
 int id lvUserId2 0x7f060008
 int id lvViewAll 0x7f060007
-int id lvclock 0x7f06000c
 int id profilePicture 0x7f060001
 int id ptr_id_header 0x7f06000e
 int id ptr_id_image 0x7f06000f
@@ -52,6 +54,9 @@ int string userName 0x7f050008
 int string viewAll 0x7f05000f
 int style AppBaseTheme 0x7f040007
 int style AppTheme 0x7f040008
+int style CustomActionBarTheme 0x7f04000b
+int style MyActionBar 0x7f04000a
+int style MyTheme 0x7f040009
 int style ptr_arrow 0x7f040002
 int style ptr_header 0x7f040001
 int style ptr_headerContainer 0x7f040000

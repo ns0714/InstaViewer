@@ -7,8 +7,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -22,10 +27,10 @@ public class PhotosActivity extends Activity {
 	private ArrayList<InstagramPhoto> photos;
 	private InstagramPhotosAdapter aPhotos;
 	private ArrayList<InstagramComment> comments;
-	
-	PullToRefreshListView lvPhotos;
-	AsyncHttpClient client;
-	String popularUrl;
+
+	private PullToRefreshListView lvPhotos;
+	private AsyncHttpClient client;
+	private String popularUrl;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,23 @@ public class PhotosActivity extends Activity {
 		setContentView(R.layout.activity_photos);
 
 		fetchPopularPhotos();
+
+		getCustomizedActionBar();
+
+	}
+
+	// Changes the font and color of the action bar
+	private void getCustomizedActionBar() {
+		ActionBar actBar = getActionBar();
+		ColorDrawable colorDrawable = new ColorDrawable(
+				Color.parseColor("#3F729B"));
+		actBar.setBackgroundDrawable(colorDrawable);
+		int titleId = getResources().getIdentifier("action_bar_title", "id",
+				"android");
+		TextView instaView = (TextView) findViewById(titleId);
+		Typeface font = Typeface.createFromAsset(getAssets(),
+				"fonts/TR Lucida Handwriting Italic.ttf");
+		instaView.setTypeface(font);
 	}
 
 	private void fetchPopularPhotos() {
@@ -40,9 +62,10 @@ public class PhotosActivity extends Activity {
 		aPhotos = new InstagramPhotosAdapter(this, photos);
 		lvPhotos = (PullToRefreshListView) findViewById(R.id.lvPhotos);
 		lvPhotos.setAdapter(aPhotos);
-		
+
 		// setup popular url endpoint
-		popularUrl = "https://api.instagram.com/v1/media/popular?client_id="+ CLIENT_ID;
+		popularUrl = "https://api.instagram.com/v1/media/popular?client_id="
+				+ CLIENT_ID;
 
 		// Create the network client
 		client = new AsyncHttpClient();
@@ -59,11 +82,10 @@ public class PhotosActivity extends Activity {
 	public void fetchTimelineAsync(int page) {
 		client.get(popularUrl, new JsonHttpResponseHandler() {
 
-			// @Override
+			// Fired once successful response back
 			public void onSuccess(int statusCode, Header[] headers,
 					JSONObject response) {
-				// Fired once successful response back
-		
+
 				JSONArray photosJSON = null;
 				try {
 					photos.clear();
@@ -80,27 +102,30 @@ public class PhotosActivity extends Activity {
 								.getJSONObject("standard_resolution")
 								.getInt("height"));
 						photo.setCreatedTime(photoJSON.getInt("created_time"));
-						
+
 						Object menuObject = photoJSON.get("caption");
 
 						if (menuObject != JSONObject.NULL) {
 							photo.setCaption(photoJSON.getJSONObject("caption")
 									.getString("text"));
 						}
-						photo.setLikesCount(photoJSON.getJSONObject("likes").getInt("count"));
-						photo.setUser_profile_pic(photoJSON.getJSONObject("user").getString(
-										"profile_picture"));
+						photo.setLikesCount(photoJSON.getJSONObject("likes")
+								.getInt("count"));
+						photo.setUser_profile_pic(photoJSON.getJSONObject(
+								"user").getString("profile_picture"));
 
-						JSONObject jsonComm = photoJSON.getJSONObject("comments");
+						JSONObject jsonComm = photoJSON
+								.getJSONObject("comments");
 						JSONArray jsonCommArr = jsonComm.getJSONArray("data");
-						
+
 						comments = new ArrayList<InstagramComment>();
 						for (int j = 0; j < jsonCommArr.length(); j++) {
 							JSONObject commentsJSON = jsonCommArr
 									.getJSONObject(j);
 							InstagramComment comm = new InstagramComment();
-							
-							comm.setUsername(commentsJSON.getJSONObject("from").getString("username"));
+
+							comm.setUsername(commentsJSON.getJSONObject("from")
+									.getString("username"));
 							comm.setCommentText(commentsJSON.getString("text"));
 							comments.add(comm);
 						}
@@ -109,7 +134,7 @@ public class PhotosActivity extends Activity {
 					}
 					lvPhotos.onRefreshComplete();
 					aPhotos.notifyDataSetChanged();
-					
+
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
