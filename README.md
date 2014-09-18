@@ -13,10 +13,15 @@ Completed user stories:
 - [x] Optional: Added the pull-to-refresh functionality to refresh popular items using SwipeRefreshLayout.
 - [x] Optional: Added functionality to display last 2 comments by the user.
 - [x] Optional: Customized UI to make the photo appear more like the display on Instagram.
-- [x] Optional: Customized the action bar color to look like Instagram.    
+- [x] Optional: Customized the action bar color & font to look like Instagram.    
 - [x] Optional: Added custom launcher icon.  
-- [x] Optional: Customised the action bar font to look like Instagram.
 - [x] Optional: Improved performance with the ViewHolder Pattern
              
+Libraries used : android-async-http-1.4.5.jar, picasso-2.3.4.jar, PullToRefreshListView, CircularImageView.
 
 Walkthrough of all user stories:
+
+Gif Image
+
+
+![Alt Text](InstaViewer.gif)
